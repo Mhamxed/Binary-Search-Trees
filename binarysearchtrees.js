@@ -184,9 +184,9 @@ class tree {
 
     rebalance() {
         const treeArray = this.levelOrder()
-        const sortedNoduplicatesArray = [...new Set(treeArray.sort(function(a, b){return a - b}))]
-        const root = this.buildTree(sortedNoduplicatesArray)
-        return root
+        const sortedNoduplicatesArray = treeArray.sort(function(a, b){return a - b})
+        this.root = this.buildTree(sortedNoduplicatesArray)
+        return this.root
     }
 
 }
@@ -212,3 +212,56 @@ console.log(bst.levelOrder()) //[8, 4, 67, 1, 5, 9, 324, 3, 7, 23, 6345]
 console.log(bst.inOrder(bst.root)) // [1, 3, 4, 5, 7, 8, 9, 23, 67, 324, 6345]
 console.log(bst.preOrder(bst.root)) //[8, 4, 1, 3, 5, 7, 67, 9, 23, 324, 6345]
 console.log(bst.postOrder(bst.root)) //[3, 1, 7, 5, 4, 23, 9, 6345, 324, 67, 8]
+
+bst.insert(bst.root, 100)
+bst.insert(bst.root, 200)
+bst.insert(bst.root, 300)
+bst.insert(bst.root, 320)
+bst.insert(bst.root, 30)
+console.log(bst.isBalanced()) //false
+bst.prettyPrint(bst.root) 
+/* 
+│           ┌── 6345
+│       ┌── 324
+│       │   │           ┌── 320
+│       │   │       ┌── 300
+│       │   │   ┌── 200
+│       │   └── 100
+│   ┌── 67
+│   │   │       ┌── 30
+│   │   │   ┌── 23
+│   │   └── 9
+└── 8
+    │       ┌── 7
+    │   ┌── 5
+    └── 4
+        │   ┌── 3
+        └── 1
+*/
+bst.rebalance()
+bst.prettyPrint(bst.root) 
+/*
+│               ┌── 6345
+│           ┌── 324
+│       ┌── 320
+│       │   └── 300
+│   ┌── 200
+│   │   │   ┌── 100
+│   │   └── 67
+│   │       └── 30
+└── 23
+    │       ┌── 9
+    │   ┌── 8
+    │   │   └── 7
+    └── 5
+        │   ┌── 4
+        └── 3
+            └── 1
+*/
+console.log(bst.isBalanced()) //true
+
+console.log(bst.levelOrder()) //[23, 5, 200, 3, 8, 67, 320, 1, 4, 7, 9,  30, 100, 300, 324, 6345]
+console.log(bst.inOrder(bst.root)) //[1, 3, 4, 5, 7, 8, 9, 23, 30, 67, 100, 200, 300, 320, 324, 6345]
+console.log(bst.preOrder(bst.root)) //[23, 5, 3, 1, 4, 8, 7, 9, 200, 67, 30, 100, 320, 300, 324, 6345]
+console.log(bst.postOrder(bst.root)) //[1, 4, 3, 7, 9, 8, 5, 30, 100, 67, 300, 6345, 324, 320, 200, 23]
+

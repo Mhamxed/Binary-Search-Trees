@@ -1,1 +1,1 @@
-Inmplementing binaty search tree in js.
+Inmplementing binaty search tree and its methodes in js.
